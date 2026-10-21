@@ -1,14 +1,10 @@
 
-// ========================================
-// SALMA AWIWE — PORTFOLIO INTERACTIONS
-// ========================================
-
 document.addEventListener("DOMContentLoaded", () => {
-  // Footer year
-  const yearElement = document.getElementById("year");
+  // Update footer year
+  const year = document.getElementById("year");
 
-  if (yearElement) {
-    yearElement.textContent = new Date().getFullYear();
+  if (year) {
+    year.textContent = new Date().getFullYear();
   }
 
   // Mobile navigation
@@ -47,69 +43,36 @@ document.addEventListener("DOMContentLoaded", () => {
     });
   }
 
-  // Highlight the active navigation link
-  const sections = document.querySelectorAll("main section[id]");
-  const navigationLinks = document.querySelectorAll(
-    '#nav-links a[href^="#"]'
-  );
-
-  if ("IntersectionObserver" in window && sections.length) {
-    const sectionObserver = new IntersectionObserver(
-      (entries) => {
-        entries.forEach((entry) => {
-          if (!entry.isIntersecting) return;
-
-          navigationLinks.forEach((link) => {
-            const isActive =
-              link.getAttribute("href") === `#${entry.target.id}`;
-
-            link.classList.toggle("active", isActive);
-          });
-        });
-      },
-      {
-        rootMargin: "-25% 0px -60% 0px",
-        threshold: 0
-      }
-    );
-
-    sections.forEach((section) => sectionObserver.observe(section));
-  }
-
   // Animated background
   const canvas = document.getElementById("tech-canvas");
-  const context = canvas ? canvas.getContext("2d") : null;
+  const ctx = canvas?.getContext("2d");
 
-  if (!canvas || !context) return;
+  if (!canvas || !ctx) return;
 
   const reducedMotion = window.matchMedia(
     "(prefers-reduced-motion: reduce)"
   );
 
   const particles = [];
-  const particleCount = 45;
-  const connectionDistance = 125;
-
-  let canvasWidth = 0;
-  let canvasHeight = 0;
-  let animationFrame = null;
+  let width = 0;
+  let height = 0;
+  let animationId = null;
 
   function resizeCanvas() {
-    const pixelRatio = Math.min(window.devicePixelRatio || 1, 2);
+    const ratio = Math.min(window.devicePixelRatio || 1, 2);
 
-    canvasWidth = window.innerWidth;
-    canvasHeight = window.innerHeight;
+    width = window.innerWidth;
+    height = window.innerHeight;
 
-    canvas.width = Math.round(canvasWidth * pixelRatio);
-    canvas.height = Math.round(canvasHeight * pixelRatio);
+    canvas.width = Math.round(width * ratio);
+    canvas.height = Math.round(height * ratio);
+    canvas.style.width = `${width}px`;
+    canvas.style.height = `${height}px`;
 
-    canvas.style.width = `${canvasWidth}px`;
-    canvas.style.height = `${canvasHeight}px`;
-
-    context.setTransform(pixelRatio, 0, 0, pixelRatio, 0, 0);
+    ctx.setTransform(ratio, 0, 0, ratio, 0, 0);
 
     createParticles();
-    drawScene();
+    draw();
 
     if (!reducedMotion.matches) {
       startAnimation();
@@ -120,52 +83,49 @@ document.addEventListener("DOMContentLoaded", () => {
     particles.length = 0;
 
     const count = Math.min(
-      particleCount,
-      Math.max(18, Math.floor((canvasWidth * canvasHeight) / 25000))
+      55,
+      Math.max(20, Math.floor((width * height) / 22000))
     );
 
     for (let i = 0; i < count; i++) {
       particles.push({
-        x: Math.random() * canvasWidth,
-        y: Math.random() * canvasHeight,
-        radius: Math.random() * 1.7 + 0.6,
-        speedX: (Math.random() - 0.5) * 0.35,
-        speedY: (Math.random() - 0.5) * 0.35
+        x: Math.random() * width,
+        y: Math.random() * height,
+        radius: Math.random() * 1.6 + 0.5,
+        vx: (Math.random() - 0.5) * 0.35,
+        vy: (Math.random() - 0.5) * 0.35
       });
     }
   }
 
-  function drawScene() {
-    context.clearRect(0, 0, canvasWidth, canvasHeight);
+  function draw() {
+    ctx.clearRect(0, 0, width, height);
 
-    // Draw connecting lines
     for (let i = 0; i < particles.length; i++) {
       for (let j = i + 1; j < particles.length; j++) {
-        const first = particles[i];
-        const second = particles[j];
+        const a = particles[i];
+        const b = particles[j];
 
-        const dx = first.x - second.x;
-        const dy = first.y - second.y;
+        const dx = a.x - b.x;
+        const dy = a.y - b.y;
         const distance = Math.sqrt(dx * dx + dy * dy);
 
-        if (distance < connectionDistance) {
-          const opacity =
-            (1 - distance / connectionDistance) * 0.17;
+        if (distance < 125) {
+          const opacity = (1 - distance / 125) * 0.18;
 
-          context.beginPath();
-          context.moveTo(first.x, first.y);
-          context.lineTo(second.x, second.y);
-          context.strokeStyle = `rgba(66, 217, 245, ${opacity})`;
-          context.lineWidth = 0.7;
-          context.stroke();
+          ctx.beginPath();
+          ctx.moveTo(a.x, a.y);
+          ctx.lineTo(b.x, b.y);
+          ctx.strokeStyle = `rgba(54, 216, 243, ${opacity})`;
+          ctx.lineWidth = 0.7;
+          ctx.stroke();
         }
       }
     }
 
-    // Draw particles
     particles.forEach((particle) => {
-      context.beginPath();
-      context.arc(
+      ctx.beginPath();
+      ctx.arc(
         particle.x,
         particle.y,
         particle.radius,
@@ -173,61 +133,59 @@ document.addEventListener("DOMContentLoaded", () => {
         Math.PI * 2
       );
 
-      context.fillStyle = "rgba(92, 206, 245, 0.55)";
-      context.fill();
+      ctx.fillStyle = "rgba(93, 213, 248, 0.65)";
+      ctx.fill();
     });
   }
 
   function animate() {
     if (reducedMotion.matches) {
-      animationFrame = null;
-      drawScene();
+      animationId = null;
+      draw();
       return;
     }
 
     particles.forEach((particle) => {
-      particle.x += particle.speedX;
-      particle.y += particle.speedY;
+      particle.x += particle.vx;
+      particle.y += particle.vy;
 
-      if (particle.x < 0 || particle.x > canvasWidth) {
-        particle.speedX *= -1;
+      if (particle.x < 0 || particle.x > width) {
+        particle.vx *= -1;
       }
 
-      if (particle.y < 0 || particle.y > canvasHeight) {
-        particle.speedY *= -1;
+      if (particle.y < 0 || particle.y > height) {
+        particle.vy *= -1;
       }
 
-      particle.x = Math.max(0, Math.min(canvasWidth, particle.x));
-      particle.y = Math.max(0, Math.min(canvasHeight, particle.y));
+      particle.x = Math.max(0, Math.min(width, particle.x));
+      particle.y = Math.max(0, Math.min(height, particle.y));
     });
 
-    drawScene();
-    animationFrame = requestAnimationFrame(animate);
+    draw();
+    animationId = requestAnimationFrame(animate);
   }
 
   function startAnimation() {
-    if (animationFrame !== null || reducedMotion.matches) return;
-
-    animationFrame = requestAnimationFrame(animate);
+    if (animationId !== null || reducedMotion.matches) return;
+    animationId = requestAnimationFrame(animate);
   }
 
   function stopAnimation() {
-    if (animationFrame !== null) {
-      cancelAnimationFrame(animationFrame);
-      animationFrame = null;
+    if (animationId !== null) {
+      cancelAnimationFrame(animationId);
+      animationId = null;
     }
   }
 
   window.addEventListener("resize", resizeCanvas);
 
-  reducedMotion.addEventListener("change", () => {
-    stopAnimation();
-    drawScene();
-
-    if (!reducedMotion.matches) {
+  if (reducedMotion.addEventListener) {
+    reducedMotion.addEventListener("change", () => {
+      stopAnimation();
+      draw();
       startAnimation();
-    }
-  });
+    });
+  }
 
   resizeCanvas();
 });

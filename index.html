@@ -1,23 +1,35 @@
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta name="theme-color" content="#07111f">
-  <meta name="description" content="Salma Awiwe — IT Operations, Enterprise Systems, Data and Reporting Portfolio.">
-  <title>Salma Awiwe | IT & Data Portfolio</title>
+
+  <meta name="description"
+    content="Salma Awiwe's professional portfolio in IT operations, enterprise systems, data and reporting.">
+
+  <title>Salma Awiwe | IT Portfolio</title>
+
   <link rel="stylesheet" href="styles.css">
   <script src="script.js" defer></script>
 </head>
 
 <body>
+
+  <!-- Animated background -->
   <canvas id="tech-canvas" aria-hidden="true"></canvas>
 
+  <!-- Navigation -->
   <header class="site-header">
-    <a class="brand" href="#home">SALMA<span>.</span></a>
+    <a href="#home" class="brand">SALMA<span>.</span></a>
 
-    <button id="menu-toggle" class="menu-toggle"
-      type="button" aria-label="Open navigation" aria-expanded="false">
+    <button
+      id="menu-toggle"
+      class="menu-toggle"
+      type="button"
+      aria-label="Open navigation"
+      aria-expanded="false">
       ☰
     </button>
 
@@ -33,15 +45,24 @@
   </header>
 
   <main>
-    <!-- HERO -->
+
+    <!-- HERO SECTION -->
     <section id="home" class="hero section">
+
+      <!-- Introduction -->
       <div class="hero-content">
-        <p class="eyebrow">IT PROFESSIONAL · DATA & SYSTEMS</p>
+
+        <p class="eyebrow">
+          IT PROFESSIONAL · DATA & SYSTEMS
+        </p>
+
         <p class="intro">Hello, I'm</p>
 
         <h1>Salma <span>Awiwe</span></h1>
 
-        <h2>IT Operations | Enterprise Systems | Data & Reporting</h2>
+        <h2>
+          IT Operations | Enterprise Systems | Data & Reporting
+        </h2>
 
         <p class="hero-text">
           IT professional with experience in SAP ERP, IT support,
@@ -49,445 +70,130 @@
           efficient workflows, and clear business insights.
         </p>
 
-        <div class="actions">
-          <a class="button primary" href="#projects">Explore Projects ↗</a>
-          <a class="button secondary" href="mailto:salma.awiwe@gmail.com">
+        <!-- Main buttons -->
+        <div class="actions main-actions">
+          <a href="#projects" class="button primary">
+            Explore Projects <span aria-hidden="true">↗</span>
+          </a>
+
+          <a href="#contact" class="button secondary">
             Contact Me
           </a>
         </div>
 
-        <div class="actions profile-actions">
-          <a class="button secondary" href="https://github.com/salma2220"
-            target="_blank" rel="noopener noreferrer">GitHub ↗</a>
+        <!-- Social links and expertise in one box -->
+        <div class="connect-panel">
 
-          <!-- Replace with your personal LinkedIn profile URL -->
-          <a class="button secondary" href="https://www.linkedin.com/feed/"
-            target="_blank" rel="noopener noreferrer">LinkedIn ↗</a>
+          <!-- Social links -->
+          <div class="connect-group">
+            <h3 class="panel-heading">
+              <span class="heading-icon" aria-hidden="true">↗</span>
+              Connect With Me
+            </h3>
 
-          <a class="button secondary" href="https://www.behance.net/salmaowiwy"
-            target="_blank" rel="noopener noreferrer">Behance ↗</a>
+            <div class="social-links">
 
-          <a class="button secondary"
-            href="https://drive.google.com/drive/folders/1ShKPcmFX_qC6Ti8iMajwYIqiJ491EH3_?usp=drive_link"
-            target="_blank" rel="noopener noreferrer">CV & Documents ↗</a>
-        </div>
+              <a
+                class="social-link"
+                href="https://github.com/salma2220"
+                target="_blank"
+                rel="noopener noreferrer"
+                aria-label="GitHub">
+                <span class="social-icon" aria-hidden="true">GH</span>
+                <span>GitHub</span>
+              </a>
 
-        <div class="skills">
-          <span>Power BI</span>
-          <span>SQL</span>
-          <span>SAP ERP</span>
-          <span>Data Operations</span>
+              <a
+                class="social-link"
+                href="https://www.linkedin.com/"
+                target="_blank"
+                rel="noopener noreferrer"
+                aria-label="LinkedIn">
+                <span class="social-icon" aria-hidden="true">in</span>
+                <span>LinkedIn</span>
+              </a>
+
+              <a
+                class="social-link"
+                href="https://www.behance.net/salmaowiwy"
+                target="_blank"
+                rel="noopener noreferrer"
+                aria-label="Behance">
+                <span class="social-icon" aria-hidden="true">Bē</span>
+                <span>Behance</span>
+              </a>
+
+              <a
+                class="social-link"
+                href="https://drive.google.com/drive/folders/1ShKPcmFX_qC6Ti8iMajwYIqiJ491EH3_?usp=drive_link"
+                target="_blank"
+                rel="noopener noreferrer"
+                aria-label="CV and documents">
+                <span class="social-icon" aria-hidden="true">▤</span>
+                <span>CV & Documents</span>
+              </a>
+
+            </div>
+          </div>
+
+          <div class="panel-divider"></div>
+
+          <!-- Core skills -->
+          <div class="expertise-group">
+
+            <h3 class="panel-heading">
+              <span class="heading-icon" aria-hidden="true">▥</span>
+              Core Expertise
+            </h3>
+
+            <div class="skill-badges">
+              <span class="skill-badge">Power BI</span>
+              <span class="skill-badge">SQL</span>
+              <span class="skill-badge">SAP ERP</span>
+              <span class="skill-badge">Data Operations</span>
+            </div>
+
+          </div>
         </div>
       </div>
 
-      <!-- Dashboard-inspired visual; styled in styles.css -->
-      <aside class="hero-visual" aria-label="Featured project preview">
-        <div class="visual-top">
+      <!-- Decorative technology visual -->
+      <div class="hero-visual" aria-hidden="true">
+
+        <div class="globe-glow"></div>
+
+        <div class="globe-orbit orbit-one"></div>
+        <div class="globe-orbit orbit-two"></div>
+        <div class="globe-orbit orbit-three"></div>
+
+        <div class="digital-globe">
+          <div class="globe-grid"></div>
+          <div class="globe-network"></div>
+        </div>
+
+        <div class="tech-node node-one">▥</div>
+        <div class="tech-node node-two">☁</div>
+        <div class="tech-node node-three">⚙</div>
+        <div class="tech-node node-four">▤</div>
+
+        <div class="visual-caption">
           <span class="status-dot"></span>
-          <span>FEATURED PROJECT</span>
-          <span class="visual-label">FURAS</span>
+          SYSTEMS · DATA · INSIGHTS
         </div>
 
-        <div class="visual-main">
-          <p class="visual-kicker">TENDER INTELLIGENCE</p>
-          <h3>Turning data into insights.</h3>
-          <p>Explore tender data through interactive reporting.</p>
-        </div>
-
-        <div class="visual-stats">
-          <div class="stat-card">
-            <span>Project</span>
-            <strong>FURAS</strong>
-          </div>
-          <div class="stat-card">
-            <span>Reporting</span>
-            <strong>Power BI</strong>
-          </div>
-        </div>
-
-        <div class="visual-chart" aria-hidden="true">
-          <span style="height: 35%"></span>
-          <span style="height: 58%"></span>
-          <span style="height: 44%"></span>
-          <span style="height: 78%"></span>
-          <span style="height: 64%"></span>
-          <span style="height: 92%"></span>
-          <span style="height: 72%"></span>
-        </div>
-
-        <a class="visual-link" href="#projects">View featured work ↗</a>
-      </aside>
-    </section>
-
-    <!-- EXPERIENCE -->
-    <section id="experience" class="section">
-      <p class="eyebrow">CAREER JOURNEY</p>
-      <h2>Professional <span>Experience</span></h2>
-
-      <article class="card">
-        <img src="assets/projects/logos/tabuk.png"
-          alt="Tabuk Pharmaceuticals logo" class="company-logo">
-
-        <div>
-          <h3>Computer Systems Technician — Tamheer Trainee</h3>
-          <p class="muted">Tabuk Pharmaceuticals Manufacturing Company · Dammam</p>
-          <p class="date">December 2024 – June 2025</p>
-
-          <ul>
-            <li>Supported daily operations using SAP ERP and the SFDA RSD system to monitor and track pharmaceutical inventory.</li>
-            <li>Updated pharmaceutical inventory and dispatch records for the Jeddah plant, supporting data integrity and regulatory compliance.</li>
-            <li>Handled inventory tracking, package acceptance, QR code generation, dispatch processing, and discrepancy reporting.</li>
-          </ul>
-
-          <div class="document-links">
-            <a href="https://drive.google.com/file/d/17chN7Sbd6Y_cmpkvilxAXxnu41jxoBmO/view?usp=drive_link"
-              target="_blank" rel="noopener noreferrer">
-              Training Certificate ↗
-            </a>
-            <a href="https://drive.google.com/file/d/1G4vtHcDrDk_qzV9mfgmwXmiD_69GfRBe/view?usp=drive_link"
-              target="_blank" rel="noopener noreferrer">
-              Professional Reference ↗
-            </a>
-          </div>
-        </div>
-      </article>
-
-      <article class="card">
-        <img src="assets/projects/logos/aramco.png"
-          alt="Saudi Aramco logo" class="company-logo">
-
-        <div>
-          <h3>IT Support Trainee — Process Network & Systems Unit</h3>
-          <p class="muted">Saudi Aramco · Berri Gas Plant · Jubail</p>
-          <p class="date">June 2023 – August 2023</p>
-
-          <ul>
-            <li>Developed three dashboards and reports for the plant's access control system.</li>
-            <li>Installed Windows operating systems and configured user accounts, including administrator access.</li>
-            <li>Supported hardware setup and basic IT operations in an industrial environment.</li>
-          </ul>
-
-          <div class="document-links">
-            <a href="https://drive.google.com/file/d/1xU2ML9IUV-Y2Io1yhyY3ZwyANvnZ6VT5/view?usp=drive_link"
-              target="_blank" rel="noopener noreferrer">Training Certificate ↗</a>
-            <a href="https://drive.google.com/file/d/1FnC92Icu8exflNUGZm-tyll_DPOncqW9/view?usp=drive_link"
-              target="_blank" rel="noopener noreferrer">Professional Reference ↗</a>
-          </div>
-        </div>
-      </article>
-
-      <article class="card">
-        <img src="assets/projects/logos/kfmc.png"
-          alt="King Fahad Medical City logo" class="company-logo">
-
-        <div>
-          <h3>Web Developer Trainee</h3>
-          <p class="muted">King Fahad Medical City · Systems Training Department · Riyadh</p>
-          <p class="date">March 2023 – May 2023</p>
-
-          <ul>
-            <li>Developed an ASP.NET web application using MS SQL Server to support data management, validation, and reporting.</li>
-          </ul>
-
-          <div class="document-links">
-            <a href="https://drive.google.com/file/d/1l-vX89NKI2wGWm8WP_Ul9IR7mKaBZn8w/view?usp=drive_link"
-              target="_blank" rel="noopener noreferrer">Training Certificate ↗</a>
-          </div>
-        </div>
-      </article>
-    </section>
-
-    <!-- PROJECTS -->
-    <section id="projects" class="section">
-      <p class="eyebrow">SELECTED WORK</p>
-      <h2>Featured <span>Projects</span></h2>
-
-      <div class="project-grid">
-        <article class="card project-card">
-          <a href="https://github.com/salma2220/FURAS-Tender-Intelligence"
-            target="_blank" rel="noopener noreferrer">
-            <img src="assets/projects/furas-dashboard.png"
-              alt="FURAS tender intelligence dashboard">
-          </a>
-          <div class="project-content">
-            <p class="project-type">DATA ENGINEERING & BUSINESS INTELLIGENCE</p>
-            <h3>FURAS — Tender Intelligence</h3>
-            <p>
-              Contributed to tender data collection and uploading raw data
-              to the Azure Bronze layer. Developed an interactive Power BI
-              dashboard connected to Gold-layer data, with KPIs, filters,
-              and visualizations for tender analysis.
-            </p>
-            <a href="https://github.com/salma2220/FURAS-Tender-Intelligence"
-              target="_blank" rel="noopener noreferrer">GitHub Repository ↗</a>
-          </div>
-        </article>
-
-        <article class="card project-card">
-          <a href="https://github.com/salma2220/Data-Gap-AI"
-            target="_blank" rel="noopener noreferrer">
-            <img src="assets/projects/datagap-ai.jpeg"
-              alt="DataGap AI analysis report">
-          </a>
-          <div class="project-content">
-            <p class="project-type">AI & DATA READINESS</p>
-            <h3>DataGap AI</h3>
-            <p>
-              A data-readiness assistant that highlights data gaps and helps
-              assess whether a dataset can answer a business question.
-            </p>
-            <a href="https://github.com/salma2220/Data-Gap-AI"
-              target="_blank" rel="noopener noreferrer">GitHub Repository ↗</a>
-          </div>
-        </article>
-
-        <article class="card project-card">
-          <a href="https://github.com/salma2220/Cultural-Data-Horizon"
-            target="_blank" rel="noopener noreferrer">
-            <img src="assets/projects/cultural-data-horizon.png"
-              alt="Cultural Data Horizon dashboard">
-          </a>
-          <div class="project-content">
-            <p class="project-type">DATA VISUALIZATION</p>
-            <h3>Cultural Data Horizon</h3>
-            <p>
-              A cultural-data visualization project presenting heritage-site
-              information through maps, charts, and summaries.
-            </p>
-            <a href="https://github.com/salma2220/Cultural-Data-Horizon"
-              target="_blank" rel="noopener noreferrer">GitHub Repository ↗</a>
-          </div>
-        </article>
-
-        <article class="card project-card">
-          <a href="https://www.behance.net/gallery/241939539/INSIGHT-AI-Smart-Stolen-Vehicle-Detection"
-            target="_blank" rel="noopener noreferrer">
-            <img src="assets/projects/insight-ai.png"
-              alt="INSIGHT AI vehicle detection project">
-          </a>
-          <div class="project-content">
-            <p class="project-type">AI CONCEPT & USER EXPERIENCE</p>
-            <h3>INSIGHT AI</h3>
-            <p>
-              A smart stolen-vehicle detection project focused on the
-              user journey and detection experience.
-            </p>
-            <a href="https://www.behance.net/gallery/241939539/INSIGHT-AI-Smart-Stolen-Vehicle-Detection"
-              target="_blank" rel="noopener noreferrer">View on Behance ↗</a>
-          </div>
-        </article>
-      </div>
-    </section>
-
-    <!-- EDUCATION -->
-    <section id="education" class="section">
-      <p class="eyebrow">LEARNING & DEVELOPMENT</p>
-      <h2>Education <span>& Training</span></h2>
-
-      <article class="card">
-        <img src="assets/projects/logos/tvtc.webp"
-          alt="Technical College logo" class="company-logo">
-        <div>
-          <h3>Bachelor's Degree in Information Technology (In Progress)</h3>
-          <p class="muted">Prince Musaid bin Abdulrahman University · Dammam</p>
-          <p class="date">2025 – 2028</p>
-        </div>
-      </article>
-
-      <article class="card">
-        <img src="assets/projects/logos/tvtc.webp"
-          alt="Technical College logo" class="company-logo">
-        <div>
-          <h3>Diploma in Programming and Web Development Technology</h3>
-          <p class="muted">Technical College · Al-Ahsa</p>
-          <p class="date">2021 – 2023</p>
-        </div>
-      </article>
-
-      <article class="card">
-        <img src="assets/projects/logos/sda.png"
-          alt="Saudi Digital Academy logo" class="company-logo">
-        <div>
-          <h3>Data Engineering Bootcamp</h3>
-          <p class="muted">Saudi Digital Academy</p>
-          <p class="date">August 2026 – October 2026</p>
-        </div>
-      </article>
-
-      <article class="card">
-        <img src="assets/projects/logos/tvtc.webp"
-          alt="Technical and Vocational Training Corporation logo" class="company-logo">
-        <div>
-          <h3>Intensive English Language Program</h3>
-          <p class="muted">Technical and Vocational Training Corporation</p>
-          <p class="date">October 2023 – March 2024</p>
-        </div>
-      </article>
-    </section>
-
-    <!-- CERTIFICATIONS -->
-    <section id="certifications" class="section">
-      <p class="eyebrow">CREDENTIALS</p>
-      <h2>Certifications <span>& Credentials</span></h2>
-
-      <article class="card">
-        <div>
-          <h3>MCIT Jr Data Scientist</h3>
-          <p class="muted">INE · March 2025</p>
-        </div>
-        <a href="https://certs.ine.com/7e5ad09e-8c1a-4553-a004-18d6d989b6ea"
-          target="_blank" rel="noopener noreferrer">Verify Certificate ↗</a>
-      </article>
-
-      <article class="card">
-        <div>
-          <h3>Certified Software Technician</h3>
-          <p class="muted">Saudi Council of Engineers · October 2024</p>
-        </div>
-        <a href="https://drive.google.com/file/d/1R-2hWymD4riimJLJNxL1ZFSb72FWRllK/view?usp=drive_link"
-          target="_blank" rel="noopener noreferrer">View Certificate ↗</a>
-      </article>
-
-      <article class="card">
-        <div>
-          <h3>Information Security Essentials (SAP)</h3>
-          <p class="muted">Saudi Aramco · June 2023</p>
-        </div>
-        <a href="https://drive.google.com/file/d/1ABqNK9gRWD8lwFHx5K7lxougsniw9Whk/view?usp=drive_link"
-          target="_blank" rel="noopener noreferrer">View Certificate ↗</a>
-      </article>
-
-      <article class="card">
-        <div>
-          <h3>IT Essentials: PC Hardware and Software</h3>
-          <p class="muted">Cisco Networking Academy · May 2022</p>
-        </div>
-        <a href="https://drive.google.com/file/d/1w9oEOHiVMIR5yYXmuhe-mA1QyJ14PV0v/view?usp=drive_link"
-          target="_blank" rel="noopener noreferrer">View Certificate ↗</a>
-      </article>
-    </section>
-
-    <!-- SKILLS -->
-    <section id="skills" class="section">
-      <p class="eyebrow">TOOLS & STRENGTHS</p>
-      <h2>Skills <span>& Expertise</span></h2>
-
-      <div class="skill-groups">
-        <article class="card">
-          <div>
-            <h3>Data & Reporting</h3>
-            <p class="skill-tags">Power BI · Microsoft Excel · SQL · Data Visualization</p>
-          </div>
-        </article>
-
-        <article class="card">
-          <div>
-            <h3>Data Engineering</h3>
-            <p class="skill-tags">Azure Databricks · Data Pipelines · APIs · Web Scraping</p>
-          </div>
-        </article>
-
-        <article class="card">
-          <div>
-            <h3>Enterprise Systems</h3>
-            <p class="skill-tags">SAP ERP · SFDA RSD System · System Operations</p>
-          </div>
-        </article>
-
-        <article class="card">
-          <div>
-            <h3>IT Support</h3>
-            <p class="skill-tags">Troubleshooting · User Support · System Monitoring · Windows OS Installation</p>
-          </div>
-        </article>
-
-        <article class="card">
-          <div>
-            <h3>Soft Skills</h3>
-            <p class="skill-tags">Attention to Detail · Problem Solving · Teamwork · Communication</p>
-          </div>
-        </article>
-
-        <article class="card">
-          <div>
-            <h3>Languages</h3>
-            <p class="skill-tags">Arabic · English</p>
-          </div>
-        </article>
-      </div>
-    </section>
-
-    <!-- RECOMMENDATIONS -->
-    <section id="recommendations" class="section">
-      <p class="eyebrow">PROFESSIONAL FEEDBACK</p>
-      <h2>Recommendations <span>& References</span></h2>
-
-      <article class="card">
-        <div>
-          <h3>Tabuk Pharmaceuticals</h3>
-          <p class="muted">Professional Reference</p>
-          <a href="https://drive.google.com/file/d/1G4vtHcDrDk_qzV9mfgmwXmiD_69GfRBe/view?usp=drive_link"
-            target="_blank" rel="noopener noreferrer">Open Reference ↗</a>
-        </div>
-      </article>
-
-      <article class="card">
-        <div>
-          <h3>Saudi Aramco</h3>
-          <p class="muted">Professional Reference</p>
-          <a href="https://drive.google.com/file/d/1FnC92Icu8exflNUGZm-tyll_DPOncqW9/view?usp=drive_link"
-            target="_blank" rel="noopener noreferrer">Open Reference ↗</a>
-        </div>
-      </article>
-    </section>
-
-    <!-- VOLUNTEERING -->
-    <section id="volunteering" class="section">
-      <p class="eyebrow">COMMUNITY INVOLVEMENT</p>
-      <h2>Volunteering <span>& Impact</span></h2>
-
-      <article class="card">
-        <img src="assets/projects/logos/ithra.png"
-          alt="Ithra logo" class="company-logo">
-        <div>
-          <h3>Ithra — King Abdulaziz Center for World Culture</h3>
-          <p class="muted">Volunteer Experience</p>
-          <a href="https://drive.google.com/file/d/1QnslfxUlQuCcUvmpDgtszWYX8zUx6ycQ/view?usp=drive_link"
-            target="_blank" rel="noopener noreferrer">View Volunteer Certificate ↗</a>
-        </div>
-      </article>
-    </section>
-
-    <!-- CONTACT -->
-    <section id="contact" class="section contact">
-      <p class="eyebrow">LET'S CONNECT</p>
-      <h2>Have an opportunity <span>in mind?</span></h2>
-      <p>
-        I'm open to opportunities in IT operations, enterprise systems,
-        data operations, and reporting.
-      </p>
-
-      <div class="actions">
-        <a class="button primary" href="mailto:salma.awiwe@gmail.com">Email Me ↗</a>
-        <a class="button secondary" href="https://github.com/salma2220"
-          target="_blank" rel="noopener noreferrer">GitHub ↗</a>
-        <a class="button secondary" href="https://www.linkedin.com/feed/"
-          target="_blank" rel="noopener noreferrer">LinkedIn ↗</a>
-        <a class="button secondary" href="https://www.behance.net/salmaowiwy"
-          target="_blank" rel="noopener noreferrer">Behance ↗</a>
-        <a class="button secondary"
-          href="https://drive.google.com/drive/folders/1ShKPcmFX_qC6Ti8iMajwYIqiJ491EH3_?usp=drive_link"
-          target="_blank" rel="noopener noreferrer">CV & Documents ↗</a>
       </div>
 
-      <p class="muted">salma.awiwe@gmail.com · Saudi Arabia</p>
     </section>
+
+    <!-- Other sections will be added in the next steps -->
+
   </main>
 
   <footer class="site-footer">
-    <a class="brand" href="#home">SALMA<span>.</span></a>
+    <a href="#home" class="brand">SALMA<span>.</span></a>
     <p>© <span id="year"></span> Salma Awiwe</p>
     <a href="#home">Back to top ↑</a>
   </footer>
+
 </body>
 </html>

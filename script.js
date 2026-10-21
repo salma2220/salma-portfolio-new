@@ -1,10 +1,10 @@
 
 document.addEventListener("DOMContentLoaded", () => {
-  // Update footer year
-  const year = document.getElementById("year");
+  // Automatically update the footer year
+  const yearElement = document.getElementById("year");
 
-  if (year) {
-    year.textContent = new Date().getFullYear();
+  if (yearElement) {
+    yearElement.textContent = new Date().getFullYear();
   }
 
   // Mobile navigation
@@ -12,6 +12,13 @@ document.addEventListener("DOMContentLoaded", () => {
   const navLinks = document.getElementById("nav-links");
 
   if (menuToggle && navLinks) {
+    function closeMenu() {
+      navLinks.classList.remove("open");
+      menuToggle.setAttribute("aria-expanded", "false");
+      menuToggle.setAttribute("aria-label", "Open navigation");
+      menuToggle.textContent = "☰";
+    }
+
     menuToggle.addEventListener("click", () => {
       const isOpen = navLinks.classList.toggle("open");
 
@@ -20,61 +27,88 @@ document.addEventListener("DOMContentLoaded", () => {
         "aria-label",
         isOpen ? "Close navigation" : "Open navigation"
       );
-
       menuToggle.textContent = isOpen ? "✕" : "☰";
     });
 
     navLinks.querySelectorAll("a").forEach((link) => {
-      link.addEventListener("click", () => {
-        navLinks.classList.remove("open");
-        menuToggle.setAttribute("aria-expanded", "false");
-        menuToggle.setAttribute("aria-label", "Open navigation");
-        menuToggle.textContent = "☰";
-      });
+      link.addEventListener("click", closeMenu);
     });
 
     document.addEventListener("keydown", (event) => {
       if (event.key === "Escape") {
-        navLinks.classList.remove("open");
-        menuToggle.setAttribute("aria-expanded", "false");
-        menuToggle.setAttribute("aria-label", "Open navigation");
-        menuToggle.textContent = "☰";
+        closeMenu();
+      }
+    });
+
+    window.addEventListener("resize", () => {
+      if (window.innerWidth > 760) {
+        closeMenu();
       }
     });
   }
 
-  // Animated background
+  // Highlight the current navigation section
+  const sections = document.querySelectorAll("main section[id]");
+  const navItems = document.querySelectorAll(
+    '#nav-links a[href^="#"]'
+  );
+
+  if ("IntersectionObserver" in window && sections.length > 0) {
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (!entry.isIntersecting) return;
+
+          navItems.forEach((link) => {
+            const active =
+              link.getAttribute("href") === `#${entry.target.id}`;
+
+            link.classList.toggle("active", active);
+          });
+        });
+      },
+      {
+        rootMargin: "-20% 0px -65% 0px",
+        threshold: 0
+      }
+    );
+
+    sections.forEach((section) => observer.observe(section));
+  }
+
+  // Animated network background
   const canvas = document.getElementById("tech-canvas");
-  const ctx = canvas?.getContext("2d");
+  const ctx = canvas ? canvas.getContext("2d") : null;
 
   if (!canvas || !ctx) return;
 
-  const reducedMotion = window.matchMedia(
+  const motionPreference = window.matchMedia(
     "(prefers-reduced-motion: reduce)"
   );
 
   const particles = [];
   let width = 0;
   let height = 0;
-  let animationId = null;
+  let animationFrame = null;
 
   function resizeCanvas() {
-    const ratio = Math.min(window.devicePixelRatio || 1, 2);
+    const pixelRatio = Math.min(window.devicePixelRatio || 1, 2);
 
     width = window.innerWidth;
     height = window.innerHeight;
 
-    canvas.width = Math.round(width * ratio);
-    canvas.height = Math.round(height * ratio);
+    canvas.width = Math.round(width * pixelRatio);
+    canvas.height = Math.round(height * pixelRatio);
+
     canvas.style.width = `${width}px`;
     canvas.style.height = `${height}px`;
 
-    ctx.setTransform(ratio, 0, 0, ratio, 0, 0);
+    ctx.setTransform(pixelRatio, 0, 0, pixelRatio, 0, 0);
 
     createParticles();
     draw();
 
-    if (!reducedMotion.matches) {
+    if (!motionPreference.matches) {
       startAnimation();
     }
   }
@@ -91,7 +125,7 @@ document.addEventListener("DOMContentLoaded", () => {
       particles.push({
         x: Math.random() * width,
         y: Math.random() * height,
-        radius: Math.random() * 1.6 + 0.5,
+        radius: Math.random() * 1.5 + 0.5,
         vx: (Math.random() - 0.5) * 0.35,
         vy: (Math.random() - 0.5) * 0.35
       });
@@ -101,6 +135,7 @@ document.addEventListener("DOMContentLoaded", () => {
   function draw() {
     ctx.clearRect(0, 0, width, height);
 
+    // Connect nearby particles
     for (let i = 0; i < particles.length; i++) {
       for (let j = i + 1; j < particles.length; j++) {
         const a = particles[i];
@@ -123,6 +158,7 @@ document.addEventListener("DOMContentLoaded", () => {
       }
     }
 
+    // Draw particles
     particles.forEach((particle) => {
       ctx.beginPath();
       ctx.arc(
@@ -139,8 +175,8 @@ document.addEventListener("DOMContentLoaded", () => {
   }
 
   function animate() {
-    if (reducedMotion.matches) {
-      animationId = null;
+    if (motionPreference.matches) {
+      animationFrame = null;
       draw();
       return;
     }
@@ -162,30 +198,31 @@ document.addEventListener("DOMContentLoaded", () => {
     });
 
     draw();
-    animationId = requestAnimationFrame(animate);
+    animationFrame = requestAnimationFrame(animate);
   }
 
   function startAnimation() {
-    if (animationId !== null || reducedMotion.matches) return;
-    animationId = requestAnimationFrame(animate);
+    if (animationFrame !== null || motionPreference.matches) {
+      return;
+    }
+
+    animationFrame = requestAnimationFrame(animate);
   }
 
   function stopAnimation() {
-    if (animationId !== null) {
-      cancelAnimationFrame(animationId);
-      animationId = null;
+    if (animationFrame !== null) {
+      cancelAnimationFrame(animationFrame);
+      animationFrame = null;
     }
   }
 
   window.addEventListener("resize", resizeCanvas);
 
-  if (reducedMotion.addEventListener) {
-    reducedMotion.addEventListener("change", () => {
-      stopAnimation();
-      draw();
-      startAnimation();
-    });
-  }
+  motionPreference.addEventListener("change", () => {
+    stopAnimation();
+    draw();
+    startAnimation();
+  });
 
   resizeCanvas();
 });

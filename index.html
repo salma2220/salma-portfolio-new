@@ -57,66 +57,68 @@
           </a>
         </div>
 
-        <div class="actions profile-actions">
-          <a class="button secondary" href="https://github.com/salma2220"
-            target="_blank" rel="noopener noreferrer">GitHub ↗</a>
+        <div class="connect-panel">
+          <p class="connect-title">CONNECT WITH ME</p>
 
-          <!-- Replace with your personal LinkedIn profile URL -->
-          <a class="button secondary" href="https://www.linkedin.com/feed/"
-            target="_blank" rel="noopener noreferrer">LinkedIn ↗</a>
+          <div class="social-links profile-actions">
+            <a class="button secondary"
+              href="https://github.com/salma2220"
+              target="_blank" rel="noopener noreferrer">GitHub ↗</a>
 
-          <a class="button secondary" href="https://www.behance.net/salmaowiwy"
-            target="_blank" rel="noopener noreferrer">Behance ↗</a>
+            <a class="button secondary"
+              href="https://www.linkedin.com/feed/"
+              target="_blank" rel="noopener noreferrer">LinkedIn ↗</a>
 
-          <a class="button secondary"
-            href="https://drive.google.com/drive/folders/1ShKPcmFX_qC6Ti8iMajwYIqiJ491EH3_?usp=drive_link"
-            target="_blank" rel="noopener noreferrer">CV & Documents ↗</a>
-        </div>
+            <a class="button secondary"
+              href="https://www.behance.net/salmaowiwy"
+              target="_blank" rel="noopener noreferrer">Behance ↗</a>
 
-        <div class="skills">
-          <span>Power BI</span>
-          <span>SQL</span>
-          <span>SAP ERP</span>
-          <span>Data Operations</span>
+            <a class="button secondary"
+              href="https://drive.google.com/drive/folders/1ShKPcmFX_qC6Ti8iMajwYIqiJ491EH3_?usp=drive_link"
+              target="_blank" rel="noopener noreferrer">CV & Documents ↗</a>
+          </div>
+
+          <div class="panel-divider"></div>
+
+          <p class="connect-title">CORE SKILLS</p>
+
+          <div class="skill-badges">
+            <span>Power BI</span>
+            <span>SQL</span>
+            <span>SAP ERP</span>
+            <span>Data Operations</span>
+          </div>
         </div>
       </div>
 
-      <!-- Dashboard-inspired visual; styled in styles.css -->
-      <aside class="hero-visual" aria-label="Featured project preview">
-        <div class="visual-top">
+      <!-- Decorative digital globe -->
+      <aside class="hero-globe"
+        aria-label="Decorative digital globe and connected data network">
+
+        <div class="globe-orbit orbit-one"></div>
+        <div class="globe-orbit orbit-two"></div>
+
+        <div class="globe-core">
+          <div class="globe-latitude latitude-one"></div>
+          <div class="globe-latitude latitude-two"></div>
+          <div class="globe-longitude longitude-one"></div>
+          <div class="globe-longitude longitude-two"></div>
+
+          <span class="globe-node node-one"></span>
+          <span class="globe-node node-two"></span>
+          <span class="globe-node node-three"></span>
+          <span class="globe-node node-four"></span>
+        </div>
+
+        <span class="network-point point-one"></span>
+        <span class="network-point point-two"></span>
+        <span class="network-point point-three"></span>
+        <span class="network-point point-four"></span>
+
+        <div class="globe-caption">
           <span class="status-dot"></span>
-          <span>FEATURED PROJECT</span>
-          <span class="visual-label">FURAS</span>
+          CONNECTING DATA & SYSTEMS
         </div>
-
-        <div class="visual-main">
-          <p class="visual-kicker">TENDER INTELLIGENCE</p>
-          <h3>Turning data into insights.</h3>
-          <p>Explore tender data through interactive reporting.</p>
-        </div>
-
-        <div class="visual-stats">
-          <div class="stat-card">
-            <span>Project</span>
-            <strong>FURAS</strong>
-          </div>
-          <div class="stat-card">
-            <span>Reporting</span>
-            <strong>Power BI</strong>
-          </div>
-        </div>
-
-        <div class="visual-chart" aria-hidden="true">
-          <span style="height: 35%"></span>
-          <span style="height: 58%"></span>
-          <span style="height: 44%"></span>
-          <span style="height: 78%"></span>
-          <span style="height: 64%"></span>
-          <span style="height: 92%"></span>
-          <span style="height: 72%"></span>
-        </div>
-
-        <a class="visual-link" href="#projects">View featured work ↗</a>
       </aside>
     </section>
 
@@ -145,6 +147,7 @@
               target="_blank" rel="noopener noreferrer">
               Training Certificate ↗
             </a>
+
             <a href="https://drive.google.com/file/d/1G4vtHcDrDk_qzV9mfgmwXmiD_69GfRBe/view?usp=drive_link"
               target="_blank" rel="noopener noreferrer">
               Professional Reference ↗
@@ -171,6 +174,7 @@
           <div class="document-links">
             <a href="https://drive.google.com/file/d/1xU2ML9IUV-Y2Io1yhyY3ZwyANvnZ6VT5/view?usp=drive_link"
               target="_blank" rel="noopener noreferrer">Training Certificate ↗</a>
+
             <a href="https://drive.google.com/file/d/1FnC92Icu8exflNUGZm-tyll_DPOncqW9/view?usp=drive_link"
               target="_blank" rel="noopener noreferrer">Professional Reference ↗</a>
           </div>
@@ -204,21 +208,19 @@
       <h2>Featured <span>Projects</span></h2>
 
       <div class="project-grid">
+        <!-- FURAS: text-only to keep the dashboard private -->
         <article class="card project-card">
-          <a href="https://github.com/salma2220/FURAS-Tender-Intelligence"
-            target="_blank" rel="noopener noreferrer">
-            <img src="assets/projects/furas-dashboard.png"
-              alt="FURAS tender intelligence dashboard">
-          </a>
-          <div class="project-content">
+          <div class="project-content project-content-text-only">
             <p class="project-type">DATA ENGINEERING & BUSINESS INTELLIGENCE</p>
             <h3>FURAS — Tender Intelligence</h3>
+
             <p>
-              Contributed to tender data collection and uploading raw data
-              to the Azure Bronze layer. Developed an interactive Power BI
-              dashboard connected to Gold-layer data, with KPIs, filters,
-              and visualizations for tender analysis.
+              A team data-engineering project that brings tender and RFP
+              opportunities from multiple sources into a unified dataset.
+              My contribution included data collection and uploading raw data
+              to the Azure Bronze layer. The repository contains the project overview.
             </p>
+
             <a href="https://github.com/salma2220/FURAS-Tender-Intelligence"
               target="_blank" rel="noopener noreferrer">GitHub Repository ↗</a>
           </div>
@@ -230,6 +232,7 @@
             <img src="assets/projects/datagap-ai.jpeg"
               alt="DataGap AI analysis report">
           </a>
+
           <div class="project-content">
             <p class="project-type">AI & DATA READINESS</p>
             <h3>DataGap AI</h3>
@@ -248,6 +251,7 @@
             <img src="assets/projects/cultural-data-horizon.png"
               alt="Cultural Data Horizon dashboard">
           </a>
+
           <div class="project-content">
             <p class="project-type">DATA VISUALIZATION</p>
             <h3>Cultural Data Horizon</h3>
@@ -266,6 +270,7 @@
             <img src="assets/projects/insight-ai.png"
               alt="INSIGHT AI vehicle detection project">
           </a>
+
           <div class="project-content">
             <p class="project-type">AI CONCEPT & USER EXPERIENCE</p>
             <h3>INSIGHT AI</h3>
@@ -286,8 +291,10 @@
       <h2>Education <span>& Training</span></h2>
 
       <article class="card">
-        <img src="assets/projects/logos/tvtc.webp"
-          alt="Technical College logo" class="company-logo">
+        <img src="assets/projects/logos/PMAU.png"
+          alt="Prince Musaid bin Abdulrahman University logo"
+          class="company-logo university-logo">
+
         <div>
           <h3>Bachelor's Degree in Information Technology (In Progress)</h3>
           <p class="muted">Prince Musaid bin Abdulrahman University · Dammam</p>
@@ -298,6 +305,7 @@
       <article class="card">
         <img src="assets/projects/logos/tvtc.webp"
           alt="Technical College logo" class="company-logo">
+
         <div>
           <h3>Diploma in Programming and Web Development Technology</h3>
           <p class="muted">Technical College · Al-Ahsa</p>
@@ -308,6 +316,7 @@
       <article class="card">
         <img src="assets/projects/logos/sda.png"
           alt="Saudi Digital Academy logo" class="company-logo">
+
         <div>
           <h3>Data Engineering Bootcamp</h3>
           <p class="muted">Saudi Digital Academy</p>
@@ -317,7 +326,9 @@
 
       <article class="card">
         <img src="assets/projects/logos/tvtc.webp"
-          alt="Technical and Vocational Training Corporation logo" class="company-logo">
+          alt="Technical and Vocational Training Corporation logo"
+          class="company-logo">
+
         <div>
           <h3>Intensive English Language Program</h3>
           <p class="muted">Technical and Vocational Training Corporation</p>
@@ -450,6 +461,7 @@
       <article class="card">
         <img src="assets/projects/logos/ithra.png"
           alt="Ithra logo" class="company-logo">
+
         <div>
           <h3>Ithra — King Abdulaziz Center for World Culture</h3>
           <p class="muted">Volunteer Experience</p>
@@ -463,6 +475,7 @@
     <section id="contact" class="section contact">
       <p class="eyebrow">LET'S CONNECT</p>
       <h2>Have an opportunity <span>in mind?</span></h2>
+
       <p>
         I'm open to opportunities in IT operations, enterprise systems,
         data operations, and reporting.
@@ -470,12 +483,19 @@
 
       <div class="actions">
         <a class="button primary" href="mailto:salma.awiwe@gmail.com">Email Me ↗</a>
-        <a class="button secondary" href="https://github.com/salma2220"
+
+        <a class="button secondary"
+          href="https://github.com/salma2220"
           target="_blank" rel="noopener noreferrer">GitHub ↗</a>
-        <a class="button secondary" href="https://www.linkedin.com/feed/"
+
+        <a class="button secondary"
+          href="https://www.linkedin.com/feed/"
           target="_blank" rel="noopener noreferrer">LinkedIn ↗</a>
-        <a class="button secondary" href="https://www.behance.net/salmaowiwy"
+
+        <a class="button secondary"
+          href="https://www.behance.net/salmaowiwy"
           target="_blank" rel="noopener noreferrer">Behance ↗</a>
+
         <a class="button secondary"
           href="https://drive.google.com/drive/folders/1ShKPcmFX_qC6Ti8iMajwYIqiJ491EH3_?usp=drive_link"
           target="_blank" rel="noopener noreferrer">CV & Documents ↗</a>

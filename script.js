@@ -1,21 +1,35 @@
 
-// ========================================
-// SALMA AWIWE — PORTFOLIO INTERACTIONS
-// ========================================
+/* ========================================
+   SALMA AWIWE — PORTFOLIO INTERACTIONS
+======================================== */
 
 document.addEventListener("DOMContentLoaded", () => {
-  // Footer year
+  // ========================================
+  // 1. AUTOMATIC FOOTER YEAR
+  // ========================================
+
   const yearElement = document.getElementById("year");
 
   if (yearElement) {
     yearElement.textContent = new Date().getFullYear();
   }
 
-  // Mobile navigation
+  // ========================================
+  // 2. MOBILE NAVIGATION
+  // ========================================
+
   const menuToggle = document.getElementById("menu-toggle");
   const navLinks = document.getElementById("nav-links");
 
   if (menuToggle && navLinks) {
+    function closeMenu() {
+      navLinks.classList.remove("open");
+
+      menuToggle.setAttribute("aria-expanded", "false");
+      menuToggle.setAttribute("aria-label", "Open navigation");
+      menuToggle.textContent = "☰";
+    }
+
     menuToggle.addEventListener("click", () => {
       const isOpen = navLinks.classList.toggle("open");
 
@@ -29,31 +43,26 @@ document.addEventListener("DOMContentLoaded", () => {
     });
 
     navLinks.querySelectorAll("a").forEach((link) => {
-      link.addEventListener("click", () => {
-        navLinks.classList.remove("open");
-        menuToggle.setAttribute("aria-expanded", "false");
-        menuToggle.setAttribute("aria-label", "Open navigation");
-        menuToggle.textContent = "☰";
-      });
+      link.addEventListener("click", closeMenu);
     });
 
     document.addEventListener("keydown", (event) => {
       if (event.key === "Escape") {
-        navLinks.classList.remove("open");
-        menuToggle.setAttribute("aria-expanded", "false");
-        menuToggle.setAttribute("aria-label", "Open navigation");
-        menuToggle.textContent = "☰";
+        closeMenu();
       }
     });
   }
 
-  // Highlight the active navigation link
+  // ========================================
+  // 3. ACTIVE NAVIGATION LINK
+  // ========================================
+
   const sections = document.querySelectorAll("main section[id]");
   const navigationLinks = document.querySelectorAll(
     '#nav-links a[href^="#"]'
   );
 
-  if ("IntersectionObserver" in window && sections.length) {
+  if ("IntersectionObserver" in window && sections.length > 0) {
     const sectionObserver = new IntersectionObserver(
       (entries) => {
         entries.forEach((entry) => {
@@ -73,58 +82,54 @@ document.addEventListener("DOMContentLoaded", () => {
       }
     );
 
-    sections.forEach((section) => sectionObserver.observe(section));
+    sections.forEach((section) => {
+      sectionObserver.observe(section);
+    });
   }
 
-  // Animated background
-  const canvas = document.getElementById("tech-canvas");
-  const context = canvas ? canvas.getContext("2d") : null;
+  // ========================================
+  // 4. ANIMATED CANVAS BACKGROUND
+  // ========================================
 
-  if (!canvas || !context) return;
+  const canvas = document.getElementById("tech-canvas");
+
+  if (!canvas) return;
+
+  const context = canvas.getContext("2d");
+
+  if (!context) return;
 
   const reducedMotion = window.matchMedia(
     "(prefers-reduced-motion: reduce)"
   );
 
   const particles = [];
-  const particleCount = 45;
-  const connectionDistance = 125;
+
+  const MAX_PARTICLES = 45;
+  const CONNECTION_DISTANCE = 125;
 
   let canvasWidth = 0;
   let canvasHeight = 0;
   let animationFrame = null;
+  let resizeTimeout = null;
 
-  function resizeCanvas() {
-    const pixelRatio = Math.min(window.devicePixelRatio || 1, 2);
-
-    canvasWidth = window.innerWidth;
-    canvasHeight = window.innerHeight;
-
-    canvas.width = Math.round(canvasWidth * pixelRatio);
-    canvas.height = Math.round(canvasHeight * pixelRatio);
-
-    canvas.style.width = `${canvasWidth}px`;
-    canvas.style.height = `${canvasHeight}px`;
-
-    context.setTransform(pixelRatio, 0, 0, pixelRatio, 0, 0);
-
-    createParticles();
-    drawScene();
-
-    if (!reducedMotion.matches) {
-      startAnimation();
-    }
-  }
+  // ----------------------------------------
+  // Create background particles
+  // ----------------------------------------
 
   function createParticles() {
     particles.length = 0;
 
-    const count = Math.min(
-      particleCount,
-      Math.max(18, Math.floor((canvasWidth * canvasHeight) / 25000))
+    const calculatedCount = Math.floor(
+      (canvasWidth * canvasHeight) / 25000
     );
 
-    for (let i = 0; i < count; i++) {
+    const particleCount = Math.min(
+      MAX_PARTICLES,
+      Math.max(18, calculatedCount)
+    );
+
+    for (let i = 0; i < particleCount; i++) {
       particles.push({
         x: Math.random() * canvasWidth,
         y: Math.random() * canvasHeight,
@@ -135,10 +140,14 @@ document.addEventListener("DOMContentLoaded", () => {
     }
   }
 
+  // ----------------------------------------
+  // Draw lines and particles
+  // ----------------------------------------
+
   function drawScene() {
     context.clearRect(0, 0, canvasWidth, canvasHeight);
 
-    // Draw connecting lines
+    // Connecting lines
     for (let i = 0; i < particles.length; i++) {
       for (let j = i + 1; j < particles.length; j++) {
         const first = particles[i];
@@ -146,25 +155,30 @@ document.addEventListener("DOMContentLoaded", () => {
 
         const dx = first.x - second.x;
         const dy = first.y - second.y;
+
         const distance = Math.sqrt(dx * dx + dy * dy);
 
-        if (distance < connectionDistance) {
+        if (distance < CONNECTION_DISTANCE) {
           const opacity =
-            (1 - distance / connectionDistance) * 0.17;
+            (1 - distance / CONNECTION_DISTANCE) * 0.17;
 
           context.beginPath();
           context.moveTo(first.x, first.y);
           context.lineTo(second.x, second.y);
-          context.strokeStyle = `rgba(66, 217, 245, ${opacity})`;
+
+          context.strokeStyle =
+            `rgba(66, 217, 245, ${opacity})`;
+
           context.lineWidth = 0.7;
           context.stroke();
         }
       }
     }
 
-    // Draw particles
+    // Particle points
     particles.forEach((particle) => {
       context.beginPath();
+
       context.arc(
         particle.x,
         particle.y,
@@ -178,9 +192,52 @@ document.addEventListener("DOMContentLoaded", () => {
     });
   }
 
+  // ----------------------------------------
+  // Resize canvas for screen and Retina
+  // ----------------------------------------
+
+  function resizeCanvas() {
+    const pixelRatio = Math.min(
+      window.devicePixelRatio || 1,
+      2
+    );
+
+    canvasWidth = window.innerWidth;
+    canvasHeight = window.innerHeight;
+
+    canvas.width = Math.round(canvasWidth * pixelRatio);
+    canvas.height = Math.round(canvasHeight * pixelRatio);
+
+    canvas.style.width = `${canvasWidth}px`;
+    canvas.style.height = `${canvasHeight}px`;
+
+    context.setTransform(
+      pixelRatio,
+      0,
+      0,
+      pixelRatio,
+      0,
+      0
+    );
+
+    createParticles();
+    drawScene();
+
+    stopAnimation();
+
+    if (!reducedMotion.matches) {
+      startAnimation();
+    }
+  }
+
+  // ----------------------------------------
+  // Animate particles
+  // ----------------------------------------
+
   function animate() {
+    animationFrame = null;
+
     if (reducedMotion.matches) {
-      animationFrame = null;
       drawScene();
       return;
     }
@@ -189,24 +246,39 @@ document.addEventListener("DOMContentLoaded", () => {
       particle.x += particle.speedX;
       particle.y += particle.speedY;
 
+      // Bounce at horizontal edges
       if (particle.x < 0 || particle.x > canvasWidth) {
         particle.speedX *= -1;
       }
 
+      // Bounce at vertical edges
       if (particle.y < 0 || particle.y > canvasHeight) {
         particle.speedY *= -1;
       }
 
-      particle.x = Math.max(0, Math.min(canvasWidth, particle.x));
-      particle.y = Math.max(0, Math.min(canvasHeight, particle.y));
+      particle.x = Math.max(
+        0,
+        Math.min(canvasWidth, particle.x)
+      );
+
+      particle.y = Math.max(
+        0,
+        Math.min(canvasHeight, particle.y)
+      );
     });
 
     drawScene();
-    animationFrame = requestAnimationFrame(animate);
+    startAnimation();
   }
 
+  // ----------------------------------------
+  // Start and stop animation safely
+  // ----------------------------------------
+
   function startAnimation() {
-    if (animationFrame !== null || reducedMotion.matches) return;
+    if (animationFrame !== null || reducedMotion.matches) {
+      return;
+    }
 
     animationFrame = requestAnimationFrame(animate);
   }
@@ -218,16 +290,44 @@ document.addEventListener("DOMContentLoaded", () => {
     }
   }
 
-  window.addEventListener("resize", resizeCanvas);
+  // ----------------------------------------
+  // Handle window resize
+  // ----------------------------------------
 
-  reducedMotion.addEventListener("change", () => {
+  window.addEventListener("resize", () => {
+    if (resizeTimeout !== null) {
+      clearTimeout(resizeTimeout);
+    }
+
+    resizeTimeout = setTimeout(() => {
+      resizeTimeout = null;
+      resizeCanvas();
+    }, 120);
+  });
+
+  // ----------------------------------------
+  // Respect reduced-motion preferences
+  // ----------------------------------------
+
+  function handleMotionPreferenceChange() {
     stopAnimation();
     drawScene();
 
     if (!reducedMotion.matches) {
       startAnimation();
     }
-  });
+  }
 
+  if (typeof reducedMotion.addEventListener === "function") {
+    reducedMotion.addEventListener(
+      "change",
+      handleMotionPreferenceChange
+    );
+  } else if (typeof reducedMotion.addListener === "function") {
+    // Compatibility with older browsers
+    reducedMotion.addListener(handleMotionPreferenceChange);
+  }
+
+  // Initialize the canvas
   resizeCanvas();
 });

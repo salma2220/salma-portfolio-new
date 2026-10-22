@@ -1,35 +1,17 @@
 
-/* ========================================
-   SALMA AWIWE — PORTFOLIO INTERACTIONS
-======================================== */
-
 document.addEventListener("DOMContentLoaded", () => {
-  // ========================================
-  // 1. AUTOMATIC FOOTER YEAR
-  // ========================================
-
+  // Automatically update the footer year
   const yearElement = document.getElementById("year");
 
   if (yearElement) {
     yearElement.textContent = new Date().getFullYear();
   }
 
-  // ========================================
-  // 2. MOBILE NAVIGATION
-  // ========================================
-
+  // Mobile navigation
   const menuToggle = document.getElementById("menu-toggle");
   const navLinks = document.getElementById("nav-links");
 
   if (menuToggle && navLinks) {
-    function closeMenu() {
-      navLinks.classList.remove("open");
-
-      menuToggle.setAttribute("aria-expanded", "false");
-      menuToggle.setAttribute("aria-label", "Open navigation");
-      menuToggle.textContent = "☰";
-    }
-
     menuToggle.addEventListener("click", () => {
       const isOpen = navLinks.classList.toggle("open");
 
@@ -38,42 +20,33 @@ document.addEventListener("DOMContentLoaded", () => {
         "aria-label",
         isOpen ? "Close navigation" : "Open navigation"
       );
-
-      menuToggle.textContent = isOpen ? "✕" : "☰";
     });
 
     navLinks.querySelectorAll("a").forEach((link) => {
-      link.addEventListener("click", closeMenu);
-    });
-
-    document.addEventListener("keydown", (event) => {
-      if (event.key === "Escape") {
-        closeMenu();
-      }
+      link.addEventListener("click", () => {
+        navLinks.classList.remove("open");
+        menuToggle.setAttribute("aria-expanded", "false");
+        menuToggle.setAttribute("aria-label", "Open navigation");
+      });
     });
   }
 
-  // ========================================
-  // 3. ACTIVE NAVIGATION LINK
-  // ========================================
-
+  // Highlight the current navigation link
   const sections = document.querySelectorAll("main section[id]");
-  const navigationLinks = document.querySelectorAll(
-    '#nav-links a[href^="#"]'
-  );
+  const links = document.querySelectorAll(".nav-links a");
 
-  if ("IntersectionObserver" in window && sections.length > 0) {
-    const sectionObserver = new IntersectionObserver(
+  if ("IntersectionObserver" in window) {
+    const observer = new IntersectionObserver(
       (entries) => {
         entries.forEach((entry) => {
-          if (!entry.isIntersecting) return;
+          if (entry.isIntersecting) {
+            links.forEach((link) => {
+              const active =
+                link.getAttribute("href") === `#${entry.target.id}`;
 
-          navigationLinks.forEach((link) => {
-            const isActive =
-              link.getAttribute("href") === `#${entry.target.id}`;
-
-            link.classList.toggle("active", isActive);
-          });
+              link.classList.toggle("active", active);
+            });
+          }
         });
       },
       {
@@ -82,252 +55,117 @@ document.addEventListener("DOMContentLoaded", () => {
       }
     );
 
-    sections.forEach((section) => {
-      sectionObserver.observe(section);
-    });
+    sections.forEach((section) => observer.observe(section));
   }
 
-  // ========================================
-  // 4. ANIMATED CANVAS BACKGROUND
-  // ========================================
-
+  // Animated technology background
   const canvas = document.getElementById("tech-canvas");
 
   if (!canvas) return;
 
-  const context = canvas.getContext("2d");
+  const ctx = canvas.getContext("2d");
 
-  if (!context) return;
+  if (!ctx) return;
 
-  const reducedMotion = window.matchMedia(
-    "(prefers-reduced-motion: reduce)"
-  );
-
-  const particles = [];
-
-  const MAX_PARTICLES = 45;
-  const CONNECTION_DISTANCE = 125;
-
-  let canvasWidth = 0;
-  let canvasHeight = 0;
+  let width = 0;
+  let height = 0;
   let animationFrame = null;
-  let resizeTimeout = null;
+  let points = [];
 
-  // ----------------------------------------
-  // Create background particles
-  // ----------------------------------------
-
-  function createParticles() {
-    particles.length = 0;
-
-    const calculatedCount = Math.floor(
-      (canvasWidth * canvasHeight) / 25000
-    );
-
-    const particleCount = Math.min(
-      MAX_PARTICLES,
-      Math.max(18, calculatedCount)
-    );
-
-    for (let i = 0; i < particleCount; i++) {
-      particles.push({
-        x: Math.random() * canvasWidth,
-        y: Math.random() * canvasHeight,
-        radius: Math.random() * 1.7 + 0.6,
-        speedX: (Math.random() - 0.5) * 0.35,
-        speedY: (Math.random() - 0.5) * 0.35
-      });
-    }
-  }
-
-  // ----------------------------------------
-  // Draw lines and particles
-  // ----------------------------------------
-
-  function drawScene() {
-    context.clearRect(0, 0, canvasWidth, canvasHeight);
-
-    // Connecting lines
-    for (let i = 0; i < particles.length; i++) {
-      for (let j = i + 1; j < particles.length; j++) {
-        const first = particles[i];
-        const second = particles[j];
-
-        const dx = first.x - second.x;
-        const dy = first.y - second.y;
-
-        const distance = Math.sqrt(dx * dx + dy * dy);
-
-        if (distance < CONNECTION_DISTANCE) {
-          const opacity =
-            (1 - distance / CONNECTION_DISTANCE) * 0.17;
-
-          context.beginPath();
-          context.moveTo(first.x, first.y);
-          context.lineTo(second.x, second.y);
-
-          context.strokeStyle =
-            `rgba(66, 217, 245, ${opacity})`;
-
-          context.lineWidth = 0.7;
-          context.stroke();
-        }
-      }
-    }
-
-    // Particle points
-    particles.forEach((particle) => {
-      context.beginPath();
-
-      context.arc(
-        particle.x,
-        particle.y,
-        particle.radius,
-        0,
-        Math.PI * 2
-      );
-
-      context.fillStyle = "rgba(92, 206, 245, 0.55)";
-      context.fill();
-    });
-  }
-
-  // ----------------------------------------
-  // Resize canvas for screen and Retina
-  // ----------------------------------------
+  const reduceMotion = window.matchMedia(
+    "(prefers-reduced-motion: reduce)"
+  ).matches;
 
   function resizeCanvas() {
-    const pixelRatio = Math.min(
-      window.devicePixelRatio || 1,
-      2
+    const ratio = Math.min(window.devicePixelRatio || 1, 2);
+
+    width = window.innerWidth;
+    height = window.innerHeight;
+
+    canvas.width = Math.round(width * ratio);
+    canvas.height = Math.round(height * ratio);
+
+    canvas.style.width = `${width}px`;
+    canvas.style.height = `${height}px`;
+
+    ctx.setTransform(ratio, 0, 0, ratio, 0, 0);
+
+    const count = Math.min(
+      65,
+      Math.max(20, Math.floor((width * height) / 22000))
     );
 
-    canvasWidth = window.innerWidth;
-    canvasHeight = window.innerHeight;
+    points = Array.from({ length: count }, () => ({
+      x: Math.random() * width,
+      y: Math.random() * height,
+      vx: (Math.random() - 0.5) * 0.35,
+      vy: (Math.random() - 0.5) * 0.35,
+      radius: Math.random() * 1.5 + 0.5
+    }));
 
-    canvas.width = Math.round(canvasWidth * pixelRatio);
-    canvas.height = Math.round(canvasHeight * pixelRatio);
-
-    canvas.style.width = `${canvasWidth}px`;
-    canvas.style.height = `${canvasHeight}px`;
-
-    context.setTransform(
-      pixelRatio,
-      0,
-      0,
-      pixelRatio,
-      0,
-      0
-    );
-
-    createParticles();
-    drawScene();
-
-    stopAnimation();
-
-    if (!reducedMotion.matches) {
-      startAnimation();
-    }
+    if (reduceMotion) drawFrame(false);
   }
 
-  // ----------------------------------------
-  // Animate particles
-  // ----------------------------------------
+  function drawFrame(movePoints = true) {
+    ctx.clearRect(0, 0, width, height);
 
-  function animate() {
-    animationFrame = null;
+    points.forEach((point) => {
+      if (movePoints) {
+        point.x += point.vx;
+        point.y += point.vy;
 
-    if (reducedMotion.matches) {
-      drawScene();
-      return;
-    }
-
-    particles.forEach((particle) => {
-      particle.x += particle.speedX;
-      particle.y += particle.speedY;
-
-      // Bounce at horizontal edges
-      if (particle.x < 0 || particle.x > canvasWidth) {
-        particle.speedX *= -1;
+        if (point.x < 0 || point.x > width) point.vx *= -1;
+        if (point.y < 0 || point.y > height) point.vy *= -1;
       }
 
-      // Bounce at vertical edges
-      if (particle.y < 0 || particle.y > canvasHeight) {
-        particle.speedY *= -1;
-      }
-
-      particle.x = Math.max(
-        0,
-        Math.min(canvasWidth, particle.x)
-      );
-
-      particle.y = Math.max(
-        0,
-        Math.min(canvasHeight, particle.y)
-      );
+      ctx.beginPath();
+      ctx.arc(point.x, point.y, point.radius, 0, Math.PI * 2);
+      ctx.fillStyle = "rgba(66, 217, 245, 0.7)";
+      ctx.fill();
     });
 
-    drawScene();
-    startAnimation();
+    points.forEach((point, index) => {
+      for (let j = index + 1; j < points.length; j++) {
+        const other = points[j];
+        const dx = point.x - other.x;
+        const dy = point.y - other.y;
+        const distance = Math.sqrt(dx * dx + dy * dy);
+
+        if (distance < 130) {
+          ctx.beginPath();
+          ctx.moveTo(point.x, point.y);
+          ctx.lineTo(other.x, other.y);
+
+          const opacity = (1 - distance / 130) * 0.22;
+
+          ctx.strokeStyle = `rgba(66, 217, 245, ${opacity})`;
+          ctx.lineWidth = 0.7;
+          ctx.stroke();
+        }
+      }
+    });
   }
 
-  // ----------------------------------------
-  // Start and stop animation safely
-  // ----------------------------------------
-
-  function startAnimation() {
-    if (animationFrame !== null || reducedMotion.matches) {
-      return;
-    }
-
-    animationFrame = requestAnimationFrame(animate);
+  function animate() {
+    drawFrame(true);
+    animationFrame = window.requestAnimationFrame(animate);
   }
 
-  function stopAnimation() {
-    if (animationFrame !== null) {
-      cancelAnimationFrame(animationFrame);
-      animationFrame = null;
-    }
-  }
+  resizeCanvas();
 
-  // ----------------------------------------
-  // Handle window resize
-  // ----------------------------------------
+  if (!reduceMotion) {
+    animate();
+  }
 
   window.addEventListener("resize", () => {
-    if (resizeTimeout !== null) {
-      clearTimeout(resizeTimeout);
+    if (animationFrame) {
+      window.cancelAnimationFrame(animationFrame);
     }
 
-    resizeTimeout = setTimeout(() => {
-      resizeTimeout = null;
-      resizeCanvas();
-    }, 120);
+    resizeCanvas();
+
+    if (!reduceMotion) {
+      animate();
+    }
   });
-
-  // ----------------------------------------
-  // Respect reduced-motion preferences
-  // ----------------------------------------
-
-  function handleMotionPreferenceChange() {
-    stopAnimation();
-    drawScene();
-
-    if (!reducedMotion.matches) {
-      startAnimation();
-    }
-  }
-
-  if (typeof reducedMotion.addEventListener === "function") {
-    reducedMotion.addEventListener(
-      "change",
-      handleMotionPreferenceChange
-    );
-  } else if (typeof reducedMotion.addListener === "function") {
-    // Compatibility with older browsers
-    reducedMotion.addListener(handleMotionPreferenceChange);
-  }
-
-  // Initialize the canvas
-  resizeCanvas();
 });
